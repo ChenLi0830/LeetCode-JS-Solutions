@@ -2,7 +2,7 @@
  * @param {string} s
  * @return {boolean}
  */
-var isNumber = function(s) {
+var isNumber2 = function(s) {
     s = s.trim();
     let ans = false, matchStr;
 
@@ -11,6 +11,14 @@ var isNumber = function(s) {
     return !!ans;
 };
 
+var isNumber = function (s) {
+    s = s.trim();
+    let ans, matchStr;
+
+    matchStr = s.match(/[+-]?(\d+(\.\d*)?|\d*\.\d+)([eE][+-]?\d+)?/);
+    ans = matchStr && matchStr[0].length === s.length;
+    return !!ans;
+};
 
 console.assert(isNumber("1."));
 console.assert(isNumber(".1"));
