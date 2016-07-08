@@ -3,7 +3,7 @@
  * @param {number} target
  * @return {number}
  */
-var search2 = function(nums, target) {
+var search3 = function(nums, target) {
     if (nums.length===0) return -1;
     var ans = doSearch(0,nums.length-1);
     return ans;
@@ -45,7 +45,7 @@ var search2 = function(nums, target) {
  * @param {number} target
  * @return {number}
  */
-var search = function(nums, target) {
+var search2 = function(nums, target) {
     let l=0, r=nums.length-1;
     while (l<r){
         let m = Math.floor((l+r)/2);
@@ -65,9 +65,32 @@ var search = function(nums, target) {
 };
 
 
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    let l=0, r=nums.length-1;
+    while (l<=r){
+        let m = Math.floor((l+r)/2);
+        if (nums[m]===target) {
+            return m;
+        } else if (nums[l]<=nums[m]){//left half is sorted. when nums[l]===nums[m], left half isone nubmer
+            if (nums[l]<=target && target<nums[m]) r = m-1;
+            else l = m+1;
+        } else {//right half is sorted
+            if (nums[m]<target && target <=nums[r]) l = m+1;
+            else r = m-1;
+        }
+    }
+    return -1;
+};
+
 //console.assert(search([1,2,3,4,5],4)===3);
 //console.assert(search([4],4)===0);
 //console.assert(search([4,5],3)===-1);
+console.assert(search([3,1],1)===1);
 console.assert(search([4,5,6,7,0,1,2],5)===-1);
 console.assert(search([4,5,6,7,0,1,2,3],4)===0);
 console.assert(search([4,5,6,7,0,1,2,3],5)===1);
