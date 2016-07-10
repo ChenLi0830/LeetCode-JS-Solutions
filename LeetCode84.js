@@ -2,7 +2,7 @@
  * @param {number[]} heights
  * @return {number}
  */
-var largestRectangleArea2 = function(heights) {
+var largestRectangleArea3 = function(heights) {
     let max = 0, f=[];
     f[-1] = [];
     for (let i=0;i<heights.length;i++){
@@ -18,7 +18,7 @@ var largestRectangleArea2 = function(heights) {
 };
 
 
-var largestRectangleArea = function(heights) {
+var largestRectangleArea2 = function(heights) {
     let leftRange = [], rightRange = [], max = 0;
     leftRange[0] = 0; rightRange[heights.length-1] = heights.length-1;
     for (let i=0;i<heights.length;i++){
@@ -52,4 +52,20 @@ var largestRectangleArea = function(heights) {
     return max;
 };
 
-largestRectangleArea([2,1,5,6,2,3]);
+
+var largestRectangleArea = function(heights) {
+    let stack = [], sIndex = 0, maxArea = 0;
+    heights[heights.length] = 0;
+    for (let i=0;i<heights.length;i++){
+        if (sIndex === 0 || heights[i]>heights[stack[sIndex-1]]){
+            stack[sIndex++] = i;
+        } else {
+            let hIndex = stack[sIndex-1], height = heights[hIndex];
+            sIndex--;
+            let  width = sIndex>=1 ? i-stack[sIndex-1]-1 : i, area = height * width;
+            maxArea = Math.max(maxArea, area);
+            i--;
+        }
+    }
+};
+largestRectangleArea([4,5,6,4]);
