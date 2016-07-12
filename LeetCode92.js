@@ -11,40 +11,40 @@
  * @param {number} n
  * @return {ListNode}
  */
-var reverseBetween2 = function(head, m, n) {
-    let nodeStart, nodeEnd, fakeHead = new ListNode(-1);
-    fakeHead.next = head;
-    nextLevel(0, null, fakeHead);
-    return fakeHead.next;
+    var reverseBetween2 = function(head, m, n) {
+        let nodeStart, nodeEnd, dummy = new ListNode(-1);
+        dummy.next = head;
+        nextLevel(0, null, dummy);
+        return dummy.next;
 
-    function nextLevel(l, prevNode, curNode){
-        if (l===m-1) nodeStart = curNode;
-        if (l===n) nodeEnd = curNode.next;
-        if (l<=n){
-            nextLevel(l+1, curNode, curNode.next);
-            if (l===m) curNode.next = nodeEnd;
-            if (l===n) nodeStart.next = curNode;
-            if (l>m && l<=n){
-                curNode.next = prevNode;
+        function nextLevel(l, prevNode, curNode){
+            if (l===m-1) nodeStart = curNode;
+            if (l===n) nodeEnd = curNode.next;
+            if (l<=n){
+                nextLevel(l+1, curNode, curNode.next);
+                if (l===m) curNode.next = nodeEnd;
+                if (l===n) nodeStart.next = curNode;
+                if (l>m && l<=n){
+                    curNode.next = prevNode;
+                }
             }
         }
-    }
-};
+    };
 
-var reverseBetween = function(head, m, n) {
-    let dummy = new ListNode(-1);
-    dummy.next = head;
-    let pre = dummy;
-    for (let i=0;i<m-1;i++) pre = pre.next;
-    let revHead = pre.next, then = revHead.next;
-    for (let i=0;i<n-m;i++){
-        revHead.next = then.next;
-        then.next = pre.next;
-        pre.next = then;
-        then = revHead.next;
-    }
-    return dummy.next;
-};
+    var reverseBetween = function(head, m, n) {
+        let dummy = new ListNode(-1);
+        dummy.next = head;
+        let pre = dummy;
+        for (let i=0;i<m-1;i++) pre = pre.next;
+        let revHead = pre.next, then = revHead.next;
+        for (let i=0;i<n-m;i++){
+            revHead.next = then.next;
+            then.next = pre.next;
+            pre.next = then;
+            then = revHead.next;
+        }
+        return dummy.next;
+    };
 
 let node1 = new ListNode(1),
     node2 = new ListNode(2),
