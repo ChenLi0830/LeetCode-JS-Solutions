@@ -10,7 +10,7 @@
  * @param {number[]} inorder
  * @return {TreeNode}
  */
-var buildTree2 = function(preorder, inorder) {
+var buildTree3 = function(preorder, inorder) {
     if (preorder.length===0) return null;
     let root = new TreeNode(preorder[0]);
     return construct(preorder, inorder, root);
@@ -33,7 +33,7 @@ var buildTree2 = function(preorder, inorder) {
     }
 };
 
-var buildTree = function(preorder, inorder) {
+var buildTree2 = function(preorder, inorder) {
     if (preorder.length===0) return null;
     return construct(0, 0, preorder.length);
 
@@ -52,21 +52,27 @@ var buildTree = function(preorder, inorder) {
     }
 };
 
+
+
+var buildTree = function(preorder, inorder) {
+    let map = [];
+    if (preorder.length===0) return null;
+    for (let i=0;i<inorder.length;i++) map[inorder[i]] = i;
+    return build(0, 0, preorder.length);
+
+    function build(preS, inS, length){
+        let head = new TreeNode(preorder[preS]),
+            leftL = map[head.val]-inS;
+        if (leftL) head.left = build(preS+1, inS, leftL);
+        if (length-leftL-1>0) head.right = build(preS+1+leftL, inS+leftL+1, length-leftL-1);
+        return head;
+    }
+};
+
 buildTree([2,1,4,3], [1,4,2,3]);
 
 
 
-    var buildTree = function(preorder, inorder) {
-        if (preorder.length===0) return null;
-        return construct(0, 0, preorder.length);
-        function construct(preS, inS, length){
-            let head = new TreeNode(preorder[preS]), leftL;
-            for (let i=inS;i<inS+length;i++) if (inorder[i]===head.val) leftL = i-inS;
-            if (leftL>0) head.left = construct(preS+ 1, inS, leftL);
-            if (preS+leftL+1<=preS+length-1) head.right = construct(preS+leftL+ 1, inS+leftL+1, length-leftL-1);
-            return head;
-        }
-    };
 
 
 
