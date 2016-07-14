@@ -10,13 +10,13 @@
  * @param {number} sum
  * @return {boolean}
  */
-var hasPathSum2 = function(root, sum) {
+var hasPathSum3 = function(root, sum) {
     if (!root) return sum === 0;
     if (!root.left && !root.right) return hasPathSum(null, sum-root.val);
     return root.left && hasPathSum(root.left, sum-root.val) || root.right && hasPathSum(root.right, sum-root.val);
 };
 
-var hasPathSum = function(root, sum) {
+var hasPathSum2 = function(root, sum) {
     if (!root) return false;
     return validate(root, sum-root.val);
     function validate(root, sum){
@@ -25,6 +25,12 @@ var hasPathSum = function(root, sum) {
             right = root.right ? validate(root.right, sum-root.right.val): false;
         return left || right;
     }
+};
+
+var hasPathSum = function(root, sum) {
+    if (!root) return false;
+    if (!root.left && !root.right) return sum-root.val===0;
+    return (!!root.left && hasPathSum(root.left, sum-root.val)) || (!!root.right && hasPathSum(root.right, sum-root.val));
 };
 
 let node1 = new TreeNode(1),
