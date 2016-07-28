@@ -22,9 +22,10 @@ var strSt2 = function(haystack, needle) {
     return found ? i:-1;
 };
 
-//KMP
+// KMP, kmp
 var strStr = function(haystack, needle) {
     var next = [], k = -1, i = 0, j=0;
+    // Initialize 'next' array
     next[0] = -1;
     while (j < needle.length){
         if (k===-1 || needle[k]===needle[j]){
@@ -56,6 +57,6 @@ var strStr = function(haystack, needle) {
     else return -1;
 };
 
-strStr("a", "");
-//strStr("abcdeabcdef", "abcdef");
+// strStr("a", "");
+strStr("abcdeabcdef", "abcdef");
 //strStr("BBC ABCDAB ABCDABCDABDE", "ABCDABD");
