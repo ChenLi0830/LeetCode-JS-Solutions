@@ -23,7 +23,7 @@ var strSt2 = function(haystack, needle) {
 };
 
 // KMP, kmp
-var strStr = function(haystack, needle) {
+var strStr21 = function(haystack, needle) {
     var next = [], k = -1, i = 0, j=0;
     // Initialize 'next' array
     next[0] = -1;
@@ -57,6 +57,40 @@ var strStr = function(haystack, needle) {
     else return -1;
 };
 
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function(haystack, needle) {
+    if (haystack==="") return needle==="" ? 0 : -1;
+    let repeat = [];
+    repeat[0] = -1;
+    for (let i=1, m = 0;i<needle.length;i++, m++){
+        if (needle[m]!==needle[i]) {
+            while (needle[m]!==needle[i]){
+                if (m===0) {
+                    m = -1;
+                    break;
+                }
+                m = repeat[m-1]+1;
+            }
+        }
+        repeat[i] = m;
+    }
+    
+    for (let i=0, j=0;i<haystack.length;i++, j++){
+        if (haystack[i]!==needle[j]) {
+            while (haystack[i]!==needle[j]){
+                if (j===0) {j=-1;break;}
+                j = repeat[j-1]+1;
+            }
+        }
+        if (j===needle.length-1) return j===-1 ? 0:i-j;
+    }
+    return -1;
+};
+
 // strStr("a", "");
-strStr("abcdeabcdef", "abcdef");
-//strStr("BBC ABCDAB ABCDABCDABDE", "ABCDABD");
+console.assert(strStr("abcdeabcdef", "abcdef")===5);
+console.assert(strStr("BBC ABCDAB ABCDABCDABDE", "ABCDABD")===15);
