@@ -9,7 +9,7 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var isPalindrome = function(head) {
+var isPalindrome2 = function(head) {
     let height = 0, node = head;
     while(node) {
         height++;
@@ -48,6 +48,44 @@ var isPalindrome = function(head) {
     }
     return true;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    if (!head || !head.next) return true;
+    let slow = head, fast = head, prev = null, next = slow.next;
+    while (fast.next && fast.next.next) {
+        fast = fast.next.next;
+        slow.next = prev;
+        prev = slow;
+        slow = next;
+        next = next.next;
+    }
+    let mid1 = slow, mid2 = slow.next, oddNumber = !!fast.next;
+    slow.next = prev;
+    if (!oddNumber) mid1 = mid1.next;
+    
+    while (mid1){
+        if (mid1.val!==mid2.val){
+            return false;
+        }
+        mid1 = mid1.next;
+        mid2 = mid2.next;
+    }
+    return true;
+};
+
+
+
 
 // let node1 = new ListNode(1),
 //     node2 = new ListNode(2),
