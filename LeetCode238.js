@@ -2,7 +2,7 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var productExceptSelf = function(nums) {
+var productExceptSelf2 = function(nums) {
     let f = [], g = [], ans = [];
     g[nums.length] = 1;
     for (let i=nums.length-1;i>=1;i--) g[i] = g[i+1]*nums[i];
@@ -14,3 +14,16 @@ var productExceptSelf = function(nums) {
     }
     return ans;
 };
+
+var productExceptSelf = function(nums) {
+    let ans = []; ans[nums.length-1] = 1;
+    for (let i=nums.length-2;i>=0;i--) ans[i] = ans[i+1]*nums[i+1];
+    
+    let left = 1;
+    for (let i=0;i<nums.length;i++){
+        ans[i] *= left;
+        left *= nums[i];
+    }
+    return ans;
+};
+
