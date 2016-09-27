@@ -15,7 +15,7 @@ var trap2 = function(height) {
     return ans;
 };
 
-var trap = function(height) {
+var trap3 = function(height) {
     let closeHeights= [], closeIndexs = [], ans = 0;
     for (let i=0;i<height.length;i++){
         for (let j=0;j<closeHeights.length;j++){
@@ -46,6 +46,30 @@ var trap = function(height) {
     }
 };
 
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    if (height.length===0) return 0;
+    let leftP = 0,
+        rightP = height.length-1,
+        ans = 0;
+    
+    while (leftP<rightP){
+        let fromLeft = height[leftP]<=height[rightP];
+        if (fromLeft){
+            ans += Math.max(0, height[leftP]-height[leftP+1]);
+            height[leftP+1] = Math.max(height[leftP], height[leftP+1]);
+            leftP++;
+        } else {
+            ans += Math.max(0, height[rightP]-height[rightP-1]);
+            height[rightP-1] = Math.max(height[rightP], height[rightP-1]);
+            rightP--;
+        }
+    }
+    return ans;
+};
 
 trap([0,1,0,2,1,0,1,3,2,1,2,1]);
 trap([2,0,2]);
