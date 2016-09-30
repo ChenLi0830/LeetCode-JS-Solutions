@@ -1,7 +1,7 @@
 # Shuffle an Array
 
 ### 更好的方法：
-一层循环，第一层与之前方法类似，生成随机数 index = (int)(Math.random() * size)，之后将在i位置的数与在index位置的数交换，以模拟随机pick。
+一层循环，第一层与之前方法类似，生成随机数 ```index = (int)(Math.random() * size)```，之后将在i位置的数与在index位置的数交换，以模拟随机pick。
 
 ### 原始方法 - 两层循环
 
