@@ -19,19 +19,12 @@ public class Solution {
         boolean[] visited = new boolean[this.nums.length];
         Arrays.fill(visited, false);
 
+        this.nums = this.original.clone();
         for (int i=0;i<size;i++){
-            int randomIndex = (int)(Math.random()*(size-i));
-            int count = 0;
-            for (int j=0;j<size;j++){
-                if (!visited[j]) {
-                    count++;
-                    if (count == randomIndex+1) {
-                        this.nums[i] = this.original[j];
-                        visited[j] = true;
-                        break;
-                    }
-                }
-            }
+            int randomIndex = (int)(Math.random()*(size));
+            int temp = this.nums[i];
+            this.nums[i] = this.nums[randomIndex];
+            this.nums[randomIndex] = temp;
         }
 
         return this.nums;
