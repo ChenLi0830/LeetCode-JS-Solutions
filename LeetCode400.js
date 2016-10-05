@@ -32,8 +32,6 @@ var findNthDigit = function(n) {
   }
 };
 
-
-
 findNthDigit(195);
 findNthDigit(189);
 findNthDigit(1);

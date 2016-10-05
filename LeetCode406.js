@@ -10,7 +10,6 @@ var reconstructQueue = function(people) {
   let ans = [[-1,0]];
   people.forEach(p => {
     let count = 0;
-    // if (ans.length===0) ans.push(p);
     for (let i=0;i<ans.length;i++){
       if (ans[i][0]>=p[0]) count++;
       if (count===p[1]) {
@@ -19,7 +18,6 @@ var reconstructQueue = function(people) {
       }
     }
   });
-  
   return ans.slice(1);
 };
 
