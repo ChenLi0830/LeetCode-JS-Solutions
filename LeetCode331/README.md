@@ -4,5 +4,7 @@
 2. Traverse the tree-string. Eliminate nodes that are '#' or have been visited twice.
 
 ## ES6 reduce method used 
-````javascript array.reduce((elem, count)=>{}, countInitialValue)````
+```javascript
+array.reduce((elem, count)=>{}, countInitialValue)
+```
 
