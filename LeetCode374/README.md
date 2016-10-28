@@ -1,0 +1,1 @@
+## This problem doesn't accept JS solutions. Java is used here.
