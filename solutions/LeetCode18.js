@@ -3,7 +3,7 @@
  * @param {number} target
  * @return {number[][]}
  */
-var fourSum = function (nums, target) {
+var fourSum2 = function (nums, target) {
     var twoSumValues = [],
         twoSumIndex = [],
         twoSumIndex2 = [],
@@ -69,6 +69,10 @@ var fourSum = function (nums, target) {
     return ans;
 };
 
+
+var fourSum = function (nums, target) {
+
+};
 
 fourSum([1, 0, -1, 0, 0], 0);
 fourSum([-3,-2,-1,0,0,1,2,3], 0);
