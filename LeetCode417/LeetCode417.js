@@ -2,7 +2,7 @@
  * @param {number[][]} matrix
  * @return {number[][]}
  */
-var pacificAtlantic = function(matrix) {
+var pacificAtlantic2 = function(matrix) {
   if (matrix.length===0) return [];
   let toAtlantic = [],
       toPacific = [],
@@ -74,6 +74,53 @@ var pacificAtlantic = function(matrix) {
     }
   }
 };
+
+var pacificAtlantic = function(matrix) {
+  if (matrix.length===0) return [];
+  let toAtlantic = [],
+      toPacific = [],
+      m = matrix.length,
+      n = matrix[0].length,
+      arr = [],
+      ans = [];
+  
+  for (let i=0; i<m; i++) arr.push([i,0]);
+  for (let j=0; j<n; j++) arr.push([0,j]);
+  BFS(arr, toAtlantic);
+  
+  for (let i=0; i<m; i++) arr.push([i, n-1]);
+  for (let j=0; j<n; j++) arr.push([m-1, j]);
+  BFS(arr, toPacific);
+  
+  for (let i=0; i<m; i++){
+    for (let j=0; j<n; j++){
+      if (toAtlantic[i][j] && toPacific[i][j]) ans.push([i,j]);
+    }
+  }
+  return ans;
+  
+  function BFS(arr, boolMatrix){
+    let hashSet = new Set(),
+        step = [[-1,0], [1, 0], [0, -1], [0,1]];
+    arr.forEach(elem => hashSet.add(elem[0]*n+elem[1]));
+    while (arr.length>0){
+      let [x,y] = arr.pop();
+      if (boolMatrix[x]===undefined) boolMatrix[x] = [];
+      boolMatrix[x][y] = true;
+      step.forEach(s => {
+        let [x2, y2] = [x+s[0], y+s[1]],
+            weight = x2*n+y2;
+        if (x2>=0 && x2<m && y2>=0 && y2<n &&
+            !hashSet.has(weight) && matrix[x2][y2]>= matrix[x][y]){
+          arr.push([x2,y2]);
+          hashSet.add(weight);
+        }
+      })
+    }
+  }
+  
+};
+
 
 // pacificAtlantic([[1,2,3],[8,9,7],[7,6,5]]);
 pacificAtlantic([[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]);
