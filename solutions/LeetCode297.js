@@ -12,7 +12,7 @@
  * @param {TreeNode} root
  * @return {string}
  */
-var serialize = function(root) {
+var serialize2 = function(root) {
     let nonEmpty = !!root, queue =[root], index = 0;
     while (nonEmpty){
         let size = queue.length; nonEmpty = false;
@@ -41,7 +41,7 @@ var serialize = function(root) {
  * @param {string} data
  * @return {TreeNode}
  */
-var deserialize = function(data) {
+var deserialize2 = function(data) {
     if (data.length===0) return null;
     let queue = data.split(","), root = null;
     // if (queue.length===0) return null;
@@ -78,6 +78,71 @@ var deserialize = function(data) {
     }
     return root;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * Encodes a tree to a single string.
+ *
+ * @param {TreeNode} root
+ * @return {string}
+ */
+var serialize = function(root) {
+    let layer = root ? [root] : [],
+        ans = [];
+    while (layer.length>0) {
+        let newLayer = [];
+        layer.forEach(node => {
+            if (node) {
+                newLayer.push(node.left);
+                newLayer.push(node.right);
+            }
+            ans.push(node ? node.val : "N");
+        });
+        layer = newLayer;
+    }
+    return ans.join(",");
+};
+
+/**
+ * Decodes your encoded data to tree.
+ *
+ * @param {string} data
+ * @return {TreeNode}
+ */
+var deserialize = function(data) {
+    let arr = data.length > 0 ? data.split(",").map(elem => elem==="N" ? "N" : Number(elem)) : [];
+    let ans = null;
+    if (arr.length > 0) {
+        ans = arr[0] === "N" ? null : new TreeNode(arr[0]);
+    }
+    let layer = ans ? [ans] : [], index = 1;
+    while (layer.length>0){
+        let newLayer = [];
+        for (let i=0; i<layer.length; i++){
+            let leftNode = isNaN(arr[index]) ? null : new TreeNode(arr[index]),
+                rightNode = isNaN(arr[index + 1]) ? null : new TreeNode(arr[index + 1]);
+            if (leftNode) layer[i].left = leftNode;
+            if (rightNode)layer[i].right = rightNode;
+            if (layer[i].left) newLayer.push(layer[i].left);
+            if (layer[i].right) newLayer.push(layer[i].right);
+            index += 2;
+        }
+        layer = newLayer;
+    }
+    return ans;
+};
+
+/**
+ * Your functions will be called as such:
+ * deserialize(serialize(root));
+ */
 
 /**
  * Your functions will be called as such:
